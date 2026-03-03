@@ -7,47 +7,53 @@ import (
 	"unicode"
 )
 
+func trimPunct(word string) string {
+	return strings.TrimFunc(word, func(r rune) bool {
+		return unicode.IsPunct(r)
+	})
+}
+
 func main() {
 	if len(os.Args) < 3 {
 		fmt.Println("Please provide input and output files.")
 		return
 	}
+
 	input := os.Args[1]
-	//output := os.Args[2]
 	raw, err := os.ReadFile(input)
 	if err != nil {
-		fmt.Println("Error reading file.", err)
+		fmt.Println("Error reading file:", err)
 		return
 	}
+
 	text := string(raw)
 	sliced := strings.Fields(text)
 	var result []string
 
-	for i := 0; i < len(sliced); i++ {
+	for _, word := range sliced {
+		clean := trimPunct(word)
 
-		word := sliced[i]
-		cleanWord := strings.TrimFunc(word, func(r rune) bool {
-			return unicode.IsPunct(r)
-		})
-		switch cleanWord {
-
-		case "(cap)":
-			if i > 0 {
+		switch clean {
+		case "cap":
+			if len(result) > 0 {
 				result[len(result)-1] = strings.Title(result[len(result)-1])
 			}
+			continue // skip appending the control word
 		case "up":
-			if i > 0 {
+			if len(result) > 0 {
 				result[len(result)-1] = strings.ToUpper(result[len(result)-1])
 			}
+			continue
 		case "low":
-			if i > 0 {
+			if len(result) > 0 {
 				result[len(result)-1] = strings.ToLower(result[len(result)-1])
 			}
+			continue
 		default:
-			result = append(result, word)
+			result = append(result, word) // keep the word as-is (with punctuation)
 		}
 	}
-	final := strings.Join(result, " ")
 
+	final := strings.Join(result, " ")
 	fmt.Println(final)
 }
