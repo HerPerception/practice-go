@@ -9,7 +9,7 @@ func camelToSnakeCase(s string) string {
 	isLetter := false
 
 	for index, ch := range s{
-		if ch >= 'A' && ch <= 'z' {
+		if (ch >= 'A' && ch <= 'Z') && (ch >= 'A' && ch <= 'z') {
 			isLetter = true
 		}
 		if index == len(s)-1 && (ch >= 'A' && ch <= 'Z') {
