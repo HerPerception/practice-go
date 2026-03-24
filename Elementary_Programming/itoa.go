@@ -11,6 +11,16 @@ func itoa(i int)string {
 	}
 	return str
 }
+
+func atoi(i string) int {
+	num := 0
+	for _, idx := range i {
+		digit := idx -'0'
+		num = num*10 + int(digit)
+	}
+	return num
+}
 func main(){
 	fmt.Printf("%q\n", itoa(12345))
+	fmt.Printf("%d\n", atoi("12345"))
 }

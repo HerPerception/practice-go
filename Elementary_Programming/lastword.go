@@ -30,4 +30,4 @@ func main(){
 		text += string(ch)
 	}
 	fmt.Println(text)
-}
+} fmt.Printf("%q\n", itoa(12345))

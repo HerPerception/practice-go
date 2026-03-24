@@ -15,21 +15,30 @@ func main() {
 	start := 0
 	end := 0
 	word := ""
-	for index, ch := range arg {
-		 if (index >= 0 && index < len(arg)/2) && ch == ' ' {
-           index++
-		 } else if (index >= 0 && index < len(arg)/2) && ch != ' '{
-			start = index
+	for index := 0; index < len(arg); index++ { 
+		if arg[index] != ' '{
+			break
 		}
-		if index == len(arg)-1 && ch == ' ' {
-			index--
-		} else if ch != ' ' {
+		start = index
+    }last := text[index-1]
+	for index := len(arg)-1; index >= 0; index-- { 
+		if arg[index] != ' '{
+			break
+		}
 			end = index
+    }
+	text = append(text, arg[start + 1:end])
+
+	for index := 0; index < len(text); index++ {
+	last := index-1
+		if text[index] == " " && text[last] == " " {
+			continue
+		} else if text[index] == " " && text[last] != " " {
+			word += text[index]
+			last = index
+		} else {
+			word += text[index] 
 		}
 	}
-	text = append(text, arg[start:end])
-	for _, ch := range text {
-		word += string(ch)
-	}
-	fmt.Printf("%q\n", word)
+	fmt.Printf("%q\n",word)
 }

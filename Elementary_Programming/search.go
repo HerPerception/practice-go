@@ -11,6 +11,10 @@ func main(){
 		fmt.Println()
 		return
 	}
+	if len(second) != 1 || len(third) != 1 {
+		fmt.Println(first)
+		return
+	}
 	word := ""
 	for _, ch := range first {
 		if string(ch) == second {
@@ -19,5 +23,5 @@ func main(){
 			word += string(ch)
 		}
 	}
-	fmt.Println(word)
+	fmt.Printf("%q\n", word)
 }
