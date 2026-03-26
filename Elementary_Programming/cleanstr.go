@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 {
+	if len(os.Args) != 2 || os.Args[1] == "" {
 		fmt.Println()
 		return
 	}
@@ -15,30 +15,30 @@ func main() {
 	start := 0
 	end := 0
 	word := ""
-	for index := 0; index < len(arg); index++ { 
-		if arg[index] != ' '{
+	newText := ""
+	for index := 0; index < len(arg); index++ {
+		if arg[index] != ' ' {
 			break
 		}
 		start = index
-    }last := text[index-1]
-	for index := len(arg)-1; index >= 0; index-- { 
-		if arg[index] != ' '{
+	}
+	for index := len(arg) - 1; index >= 0; index-- {
+		if arg[index] != ' ' {
 			break
 		}
-			end = index
-    }
-	text = append(text, arg[start + 1:end])
+		end = index
+	}
+	text = append(text, arg[start+1:end])
 
-	for index := 0; index < len(text); index++ {
-	last := index-1
-		if text[index] == " " && text[last] == " " {
+	for _, ch := range text {
+		word += ch
+	}
+	for i := range word {
+		if word[i] == ' ' && word[i+1] == ' ' {
 			continue
-		} else if text[index] == " " && text[last] != " " {
-			word += text[index]
-			last = index
 		} else {
-			word += text[index] 
+			newText += string(word[i])
 		}
 	}
-	fmt.Printf("%q\n",word)
+	fmt.Printf("%q\n", newText)
 }
