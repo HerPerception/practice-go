@@ -64,5 +64,13 @@ func main() {
 		newSlice = append(newSlice, slice[i])
 	}
 	newSlice = append(newSlice, slice[0])
-	fmt.Printf("%q\n", newSlice)
+	newText := ""
+	for i := range newSlice {
+		if i == len(newSlice)-1 {
+			newText += string(newSlice[i])
+		} else {
+			newText += string(newSlice[i]) + " "
+		}
+	}
+	fmt.Printf("%q\n", newText)
 }
