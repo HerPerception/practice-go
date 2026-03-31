@@ -87,11 +87,14 @@ func Reverse(s string) string {
 
 var history []string
 var maxHistory = 5
+
 func History(s string) string {
-	if len(history) >= maxHistory {
-		history = history[1:]
+	if s != "" {
+		if len(history) == maxHistory {
+			history = history[1:]
+		}
+		history = append(history, s)
 	}
-	history = append(history, s)
 	result := ""
 	for i := 0; i < len(history); i++ {
 		result += fmt.Sprintf("%d: %s\n", i+1, history[i])
@@ -101,46 +104,69 @@ func History(s string) string {
 
 func main() {
 	fmt.Println("Welcome To Sentinel String Transformer.")
+	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Println("Enter Prompt below: ")
-		scanner := bufio.NewScanner(os.Stdin)
+
 		scanner.Scan()
 		input := scanner.Text()
-
 		if input == "exit" {
 			fmt.Println("Shutting down String Transformer. Goodbye...")
 			return
-		} else if input == "history" {
-			fmt.Println(History())
 		} else {
 			if len(input) == 0 {
 				continue
 			}
 			input = strings.ToLower(input)
 			newInput := strings.Fields(input)
+			var newHistory string
+			if input == "history" {
+				fmt.Println(History(newHistory))
+				continue
+			}
 			if len(newInput) < 2 {
 				fmt.Println("No text provided. Usage: <command> <text>")
+				continue
 			}
-			commandHistory := input + "=>" + output
+
+			output := ""
+			commandHistory := ""
 			switch newInput[0] {
 			case "upper":
-				fmt.Println(Upper(input))
+				output = Upper(input)
+				fmt.Println(output)
+				commandHistory = input + " => " + output
+
 			case "lower":
-				fmt.Println(Lower(input))
+				output = Lower(input)
+				fmt.Println(output)
+				commandHistory = input + " => " + output
 
 			case "cap":
-				fmt.Println(Cap(input))
+				output = Cap(input)
+				fmt.Println(output)
+				commandHistory = input + " => " + output
 
 			case "title":
-				fmt.Println(Title(input))
+				output = Title(input)
+				fmt.Println(output)
+				commandHistory = input + " => " + output
+
 			case "snake":
-				fmt.Println(Snake(input))
+				output = Snake(input)
+				fmt.Println(output)
+				commandHistory = input + " => " + output
 
 			case "reverse":
-				fmt.Println(Reverse(input))
-
+				output = Reverse(input)
+				fmt.Println(output)
+				commandHistory = input + " => " + output
 			default:
 				fmt.Printf("Unknown command: %s, Valid Commands: upper, lower, cap, title, snake, reverse, exit\n", newInput[0])
+			}
+
+			if commandHistory != "" {
+				newHistory = History(commandHistory)
 			}
 		}
 
