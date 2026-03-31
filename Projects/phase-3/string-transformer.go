@@ -27,13 +27,13 @@ func StringTransformer(s string) string {
 			str[i] = strings.ToLower(str[i])
 		}
 		for i := range str {
-			if str[i] == "a" || str[i] == "an" || str[i] == "the" || str[i] == "and" {
+			if i > 1 && (str[i] == "a" || str[i] == "an" || str[i] == "the" || str[i] == "and") {
 				continue
-			} else if str[i] == "but" || str[i] == "or" || str[i] == "for" || str[i] == "nor" {
+			} else if i > 1 && (str[i] == "but" || str[i] == "or" || str[i] == "for" || str[i] == "nor") {
 				continue
-			} else if str[i] == "on" || str[i] == "at" || str[i] == "to" || str[i] == "by" {
+			} else if i > 1 && (str[i] == "on" || str[i] == "at" || str[i] == "to" || str[i] == "by") {
 				continue
-			} else if str[i] == "in" || str[i] == "of" || str[i] == "up" || str[i] == "as" || str[i] == "is" || str[i] == "it" {
+			} else if i > 1 && (str[i] == "in" || str[i] == "of" || str[i] == "up" || str[i] == "as" || str[i] == "is" || str[i] == "it") {
 				continue
 			} else {
 				str[i] = (strings.ToUpper(string(str[i][0])) + strings.ToLower(str[i][1:]))
@@ -80,19 +80,20 @@ func main() {
 		scanner := bufio.NewScanner(os.Stdin)
 		scanner.Scan()
 		input := scanner.Text()
-		if len(input) == 0 {
-			continue
-		}
-		input = strings.ToLower(input)
-		newInput := strings.Fields(input)
-		if len(newInput) < 2 {
-			fmt.Println("No text provided. Usage: <command> <text>")
-		}
-		if input == "quit" {
+		if input == "exit" {
 			fmt.Println("Shutting down String Transformer. Goodbye...")
 			return
 		} else {
+			if len(input) == 0 {
+				continue
+			}
+			input = strings.ToLower(input)
+			newInput := strings.Fields(input)
+			if len(newInput) < 2 {
+				fmt.Println("No text provided. Usage: <command> <text>")
+			}
 			fmt.Println(StringTransformer(input))
 		}
+
 	}
 }
