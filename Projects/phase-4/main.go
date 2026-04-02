@@ -29,5 +29,17 @@ func main() {
 			newInput := scanner.Text()
 			fmt.Println(myDir.Calculator(newInput))
 		}
+		if input == "base" {
+			fmt.Println("Choose options: hex <a>, bin <a>, dec <a>, last -> shows last result.")
+			scanner.Scan()
+			newInput := scanner.Text()
+			fmt.Println(myDir.Base(newInput))
+		}
+		if input == "str" {
+			fmt.Println("Choose options: upper <text>, low <text>, cap <text>, title <text>, snake <text>, reverse <text>, last -> shows last result.")
+			scanner.Scan()
+			newInput := scanner.Text()
+			fmt.Println(myDir.StringsTran(newInput))
+		}
 	}
 }
