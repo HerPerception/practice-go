@@ -45,7 +45,7 @@ func Title(s string) string {
 		} else if i > 1 && (str[i] == "in" || str[i] == "of" || str[i] == "up" || str[i] == "as" || str[i] == "is" || str[i] == "it") {
 			continue
 		} else {
-			str[i] = (strings.ToUpper(string(str[i][0])) + strings.ToLower(str[i][1:]))
+			//str[i] = (strings.ToUpper(string(str[i][0])) + strings.ToLower(str[i][1:]))
 		}
 	}
 

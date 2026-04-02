@@ -8,9 +8,10 @@ import (
 
 func Calculator(s string) string {
 	str := strings.Fields(s)
-	var output string
+	//var output string
 	switch str[0] {
 	case "add":
+		Input = s
 		first, err := strconv.Atoi(str[1])
 		if err != nil {
 			return "Error in first number, check input and try again"
@@ -19,10 +20,11 @@ func Calculator(s string) string {
 		if err != nil {
 			return "Error in second number, check input and try again"
 		}
-		output += fmt.Sprintf("result: %d", first+sec)
-		return output
+		Output = fmt.Sprintf("result: %d", first+sec)
+		return Output
 
 	case "sub":
+		Input = s
 		first, err := strconv.Atoi(str[1])
 		if err != nil {
 			return "Error in first number, check input and try again"
@@ -31,9 +33,11 @@ func Calculator(s string) string {
 		if err != nil {
 			return "Error in second number, check input and try again"
 		}
-		return fmt.Sprintf("result: %d", first-sec)
+		Output = fmt.Sprintf("result: %d", first-sec)
+		return Output
 
 	case "mul":
+		Input = s
 		first, err := strconv.Atoi(str[1])
 		if err != nil {
 			return "Error in first number, check input and try again"
@@ -42,9 +46,11 @@ func Calculator(s string) string {
 		if err != nil {
 			return "Error in second number, check input and try again"
 		}
-		return fmt.Sprintf("result: %d", first*sec)
+		Output = fmt.Sprintf("result: %d", first*sec)
+		return Output
 
 	case "mod":
+		Input = s
 		first, err := strconv.Atoi(str[1])
 		if err != nil {
 			return "Error in first number, check input and try again"
@@ -53,9 +59,11 @@ func Calculator(s string) string {
 		if err != nil {
 			return "Error in second number, check input and try again"
 		}
-		return fmt.Sprintf("result: %d", first%sec)
+		Output = fmt.Sprintf("result: %d", first%sec)
+		return Output
 
 	case "pow":
+		Input = s
 		first, err := strconv.Atoi(str[1])
 		if err != nil {
 			return "Error in first number, check input and try again"
@@ -68,16 +76,22 @@ func Calculator(s string) string {
 		for i := 0; i < sec; i++ {
 			result *= first
 		}
-		return fmt.Sprintf("result: %d", result)
+		Output = fmt.Sprintf("result: %d", result)
+		return Output
 
-	}
-	if str[0] == "last" {
-		if output != "" {
-			return output
-		} else {
-			return "No previous session. Type in a command to begin."
+	case "last":
+		if Output == "" {
+			return "No previous session. Enter command <text> to begin one.\n"
 		}
+		if str[0] == "last" && Output != "" {
+			Last = fmt.Sprintf("%s => %s", Input, Output)
+		}
+		if Last != "" {
+			History = append(History, Last)
+		}
+		return Last
 	}
-
+	//Last = fmt.Sprintf("%s => %s", Input, Output)
+	
 	return "Invalid command. Check input and try again."
 }

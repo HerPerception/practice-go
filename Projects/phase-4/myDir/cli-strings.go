@@ -5,34 +5,44 @@ import (
 	"strings"
 )
 
+var Output string
+var Input string
+var History []string
+var Last string
+
 func StringsTran(s string) string {
 	str := strings.Fields(s)
-
 	switch str[0] {
 	case "upper":
+		Input = s
 		for i := range str {
 			str[i] = strings.ToUpper(str[i])
 		}
 
-		return strings.Join(str[1:], " ")
+		Output = strings.Join(str[1:], " ")
+		return Output
 
-	case "low":
+	case "lower":
+		Input = s
 		for i := range str {
 			str[i] = strings.ToLower(str[i])
 		}
-		return strings.Join(str[1:], " ")
+		Output = strings.Join(str[1:], " ")
+		return Output
 
 	case "cap":
+		Input = s
 		for i := 0; i < len(str); i++ {
 			str[i] = (strings.ToUpper(string(str[i][0])) + strings.ToLower(str[i][1:]))
 		}
-		return strings.Join(str[1:], " ")
+		Output = strings.Join(str[1:], " ")
+		return Output
 
 	case "title":
+		Input = s
+
 		for i := range str {
 			str[i] = strings.ToLower(str[i])
-		}
-		for i := 0; i < len(str); i++ {
 			if i > 1 && (str[i] == "a" || str[i] == "an" || str[i] == "the" || str[i] == "and") {
 				continue
 			} else if i > 1 && (str[i] == "but" || str[i] == "or" || str[i] == "for" || str[i] == "nor") {
@@ -44,24 +54,29 @@ func StringsTran(s string) string {
 			} else {
 				str[i] = (strings.ToUpper(string(str[i][0])) + strings.ToLower(str[i][1:]))
 			}
-			return strings.Join(str[1:], " ")
 		}
+		Output = strings.Join(str[1:], " ")
+		return Output
+
 	case "snake":
-		strs := strings.ToLower(strings.Join(str, "_"))
+		Input = s
+		strs := strings.ToLower(strings.Join(str[1:], "_"))
 
 		word := ""
 		for i := range strs {
 			if strs[i] == '_' {
 				word += string(strs[i])
-			} else if strs[i] >= 'a' && strs[i] <= 'z' || strs[i] >= 'A' && strs[i] <= 'Z' {
+			} else if strs[i] >= 'a' && strs[i] <= 'z' || strs[i] >= '0' && strs[i] <= '9' {
 				word += string(strs[i])
 			}
 		}
-		return word
+		Output = word
+		return Output
 
 	case "reverse":
+		Input = s
 		text := ""
-		for i := 0; i < len(str); i++ {
+		for i := range str {
 			index := str[i]
 			for in := len(index) - 1; in >= 0; in-- {
 				text += string(index[in])
@@ -69,7 +84,29 @@ func StringsTran(s string) string {
 			str[i] = text
 			text = ""
 		}
-		return strings.Join(str[1:], " ")
+		Output = strings.Join(str[1:], " ")
+		return Output
+
+	case "last":
+		if Output == "" {
+			return "No previous session. Enter command <text> to begin one.\n"
+		}
+		if str[0] == "last" && Output != "" {
+			Last = fmt.Sprintf("%s => %s", Input, Output)
+		}
+		if Last != "" {
+			History = append(History, Last)
+		}
+		return Last
 	}
+	// Last = fmt.Sprintf("%s => %s", Input, Output)
+	// History = append(History, Last)
+
 	return fmt.Sprintf("%s is not a string transformer command. Check input and try agin.", str[0])
+}
+
+func Back(s string) {
+	if s == "back" {
+		return
+	}
 }
