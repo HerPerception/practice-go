@@ -5,21 +5,20 @@ import "strings"
 func PrintHistory(s string) string {
 	maxHistory := 10
 	commandHistory := ""
-	//start := 0
+	newHistory := []string{}
 	switch s {
 	case "history":
-		if Last != "" {
-			History = append(History, Last)
+		if len(History) == maxHistory {
+			if Last != "" {
+				start := len(History) - maxHistory
+				History = append(History, Last)
+				commandHistory = strings.Join(newHistory[start:], "\n")
+			}
 		}
-		if len(History) == 0 {
-			return "No previous session."
+		if commandHistory == "" && Last == "" {
+			return "No previous sessions."
 		}
-		if len(History) <= maxHistory {
-			commandHistory = strings.Join(History, "\n")
-		} else if len(History) > maxHistory {
-			//History = append(History, Last)
-			commandHistory = strings.Join(History[len(History)-10:], "\n")
-		}
+
 		return commandHistory
 
 	case "clear":

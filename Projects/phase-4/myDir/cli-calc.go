@@ -86,12 +86,13 @@ func Calculator(s string) string {
 		if str[0] == "last" && Output != "" {
 			Last = fmt.Sprintf("%s => %s", Input, Output)
 		}
-		if Last != "" {
-			History = append(History, Last)
-		}
+
 		return Last
 	}
 	//Last = fmt.Sprintf("%s => %s", Input, Output)
-	
+
+	if Last != "" {
+		History = append(History, Last)
+	}
 	return "Invalid command. Check input and try again."
 }

@@ -56,6 +56,6 @@ func Base(s string) string {
 	}
 
 	// Last = fmt.Sprintf("%s => %s", Input, Output)
-	// History = append(History, Last)
+	History = append(History, Last)
 	return fmt.Sprintf("%s is invalid Base Converter command. Check input and try again.", str[0])
 }
