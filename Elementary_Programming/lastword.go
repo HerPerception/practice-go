@@ -1,9 +1,11 @@
 package main
 
-import "fmt"
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
-func main(){
+func main() {
 	if len(os.Args) != 2 {
 		return
 	}
@@ -14,14 +16,15 @@ func main(){
 	word := []string{}
 	i := 0
 	n := 0
-	for index, ch := range s {
-		if index == len(s)-1 && ch == ' ' {
-			index--
-		} else if ch != ' ' {
+	for index := len(s)-1; index >= 0; index-- {
+		if index < len(s)-1 && s[index] != ' ' {
 			i = index
-			index--
-		} else if ch == ' ' {
-			n = index + 1
+			break
+		}
+	}
+	for in := 0; in < len(s); in++ {
+		if in < i && s[in] == ' ' {
+			n = in
 		}
 	}
 	word = append(word, s[n:i+1])
@@ -30,4 +33,4 @@ func main(){
 		text += string(ch)
 	}
 	fmt.Println(text)
-} fmt.Printf("%q\n", itoa(12345))
+}
