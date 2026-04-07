@@ -6,7 +6,7 @@ func FindPrevPrime(nb int) int {
 	n := 0
 	prime := true
 	for i := nb; i >= 2; i-- {
-
+		prime = true
 		for n := 2; n*n <= i; n++ {
 			if i%n == 0 {
 				prime = false
@@ -14,7 +14,7 @@ func FindPrevPrime(nb int) int {
 			}
 
 		}
-		prime = true
+		//prime = true
 		if prime != false && i <= nb {
 			n = i
 			break
@@ -24,5 +24,5 @@ func FindPrevPrime(nb int) int {
 }
 
 func main() {
-	fmt.Println(FindPrevPrime(4))
+	fmt.Println(FindPrevPrime(34))
 }
