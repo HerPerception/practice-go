@@ -14,8 +14,8 @@ func UpN(s []string) []string {
 			cmd = s[i][1:]
 			num = int(s[i+1][0] - '0')
 			//temp = i - num
-			if num > len(s) {
-				num = len(s)
+			if num > i {
+				num = i
 			}
 
 			for j := i - num; j < i; j++ {
@@ -41,5 +41,5 @@ func UpN(s []string) []string {
 }
 
 func main() {
-	fmt.Println(UpN([]string{"my", "mum", "(up", "2)", "iS", "VERY", "NICE", "(low", "3)", "and", "my", "dad", "too", "(cap", "4)"}))
+	fmt.Println(UpN([]string{"my", "mum", "(up", "6)", "iS", "VERY", "NICE", "(low", "4)", "and", "my", "dad", "too", "(cap", "4)"}))
 }

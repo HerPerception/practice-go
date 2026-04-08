@@ -17,6 +17,9 @@ func CmdN(s []string) []string {
 				num = temp
 			}
 		}
+		if num > i {
+			num = i
+		}
 		for j := i - num; j < i; j++ {
 			if cmd == "up" {
 				s[j] = strings.ToUpper(s[j])
@@ -38,5 +41,5 @@ func CmdN(s []string) []string {
 }
 
 func main() {
-	fmt.Println(CmdN([]string{"my", "mum", "(up", "2)", "iS", "VERY", "NICE", "(low", "3)", "and", "my", "dad", "too", "(cap", "4)"}))
+	fmt.Println(CmdN([]string{"my", "mum", "(up", "6)", "iS", "VERY", "NICE", "(low", "3)", "and", "my", "dad", "too", "(cap", "4)"}))
 }
