@@ -1,1 +1,2 @@
-Go is very fun until you encounter bugs
+Go is very fun 
+until you encounter bugs
