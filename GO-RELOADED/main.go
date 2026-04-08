@@ -1,9 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println(Case("he (up), he is (up, 2), she IS MY BOss, (low, 3)"))
-	fmt.Println(Base("1E (hex), he is  1010 (bin)"))
-	fmt.Println(FixPunct("I was thinking    ... You were right"))
+	if len(os.Args) != 3 {
+		fmt.Println("Usage: go run . <input file> <output file>")
+		return
+	}
+	data, err := os.ReadFile(os.Args[1])
+	if err != nil {
+		fmt.Println("Error reading file, check if file exists.")
+		return
+	}
+	text := Base(string(data))
+	text1 := Case(text)
+	text2 := FixQuotes(text1)
+	text3 := AToAn(text2)
+	text4 := FixPunct(text3)
+
+	err = os.WriteFile(os.Args[2], []byte(text4), 0644)
+	if err != nil {
+		fmt.Println("Error writing file.")
+		return
+	} else {
+		fmt.Printf("File processed successfully to %s\n", os.Args[2])
+	}
 }

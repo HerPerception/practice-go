@@ -9,6 +9,8 @@ func FixPunct(s string) string {
 	for i := 0; i < len(strs); i++ {
 		if strs[i] == ' ' && strings.ContainsAny(string(strs[i+1]), "!.,;:?") {
 			continue
+		} else if i > 0 && strings.ContainsAny(string(strs[i-1]), "!.,;:?") && strs[i] != ' ' {
+			text += " " + string(strs[i])
 		} else {
 			text += string(strs[i])
 		}
