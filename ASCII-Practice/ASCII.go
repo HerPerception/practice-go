@@ -7,6 +7,11 @@ import (
 )
 
 func main() {
+	if len(os.Args) != 2 {
+		fmt.Println("Include text.")
+		return
+	}
+	str := os.Args[1]
 	data, err := os.ReadFile("standard.txt")
 	if err != nil {
 		return
@@ -14,16 +19,13 @@ func main() {
 
 	lines := strings.Split(string(data), "\n")
 
-	str := "H"
-
 	for r := 0; r < 8; r++ { // FIX: must be < 8, not <= 8
 		row := []string{}
 
-		for _, c := range str {
-			index := int(c-32)*8 + r
-			end := index + 7
+		for c := range str {
+			index := int(str[c]-32)*9 + r
 			if index >= 0 && index < len(lines) {
-				row = append(row, lines[index:end]...)
+				row = append(row, lines[index])
 			}
 		}
 
