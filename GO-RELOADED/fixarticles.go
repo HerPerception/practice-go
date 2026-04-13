@@ -14,26 +14,27 @@ func AToAn(s string) string {
 	return strings.Join(str, " ")
 }
 
-// func FixQuotes(strs string) string {
-// 	str := strings.Fields(strs)
-// 	s := strings.Join(str, " ")
-// 	flag := 0
-// 	text := ""
-// 	for i := 0; i < len(s); i++ {
-// 		if i > 0 && s[i] == ' ' && s[i-1] == '\'' {
-// 			continue
-// 		} else if i < len(s)-1 && s[i] == ' ' && s[i+1] == '\'' {
-// 			continue
-// 		}
-// 		if s[i] == '\'' && flag == 0 {
-// 			text += " " + string(s[i])
-// 			flag = 1
-// 		} else if s[i] == '\'' && flag == 1 {
-// 			text += string(s[i]) + " "
-// 			flag = 0
-// 		} else {
-// 			text += string(s[i])
-// 		}
-// 	}
-// 	return text
-// }
+func FixQuotes(s string) string {
+	str := strings.Fields(s)
+	s = strings.Join(str, " ")
+	var text string
+	inQuote := false
+	for i := 0; i < len(s); i++ {
+		if s[i] == '\'' {
+			text += string(s[i])
+			inQuote = true
+		} else if s[i] == ' ' && s[i-1] == '\'' && inQuote {
+			continue
+		} else if inQuote && s[i] == ' ' && strings.ContainsAny(string(s[i-1]), "!.,;:?") && s[i+1] == '\'' {
+			continue
+		} else if inQuote && s[i] == ' ' && s[i+1] == '\'' && !strings.ContainsAny(string(s[i-1]), "!.,;:?") {
+			continue
+		} else if inQuote && s[i] == '\'' {
+			text += string(s[i])
+			inQuote = false
+		} else {
+			text += string(s[i])
+		}
+	}
+	return text
+}
