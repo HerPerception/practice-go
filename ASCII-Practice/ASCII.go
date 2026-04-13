@@ -12,14 +12,14 @@ func main() {
 		return
 	}
 	str := os.Args[1]
-	data, err := os.ReadFile("standard.txt")
+	data, err := os.ReadFile("shadow.txt")
 	if err != nil {
 		return
 	}
 
 	lines := strings.Split(string(data), "\n")
 
-	for r := 0; r < 8; r++ { // FIX: must be < 8, not <= 8
+	for r := 1; r < 9; r++ { 
 		row := []string{}
 
 		for c := range str {
