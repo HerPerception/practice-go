@@ -33,6 +33,7 @@ func Case(s string) string {
 
 				case "(cap,", "(cap)", "(cap":
 					str[j] = strings.ToUpper(string(str[j][0])) + strings.ToLower(str[j][1:])
+
 				}
 			}
 		}

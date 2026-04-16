@@ -15,8 +15,8 @@ func main() {
 		fmt.Println("Error reading file.")
 		return
 	}
-	text := Case(string(data))
-	text = Base(text)
+	text := Base(string(data))
+	text = Case(text)
 	text = AToAn(text)
 	text = FixQuotes(text)
 	text = Punctuations(text)
