@@ -34,7 +34,10 @@ func main() {
 	}
 	slice := strings.Split(str, "\\n")
 	lines := strings.Split(string(data), "\n")
-	//fmt.Println(lines)
+	for i := range lines {
+		lines[i] = strings.ReplaceAll(lines[i], "\r", "")
+
+	}
 	for c := range slice {
 		for r := 1; r < 8; r++ {
 			row := []string{}
