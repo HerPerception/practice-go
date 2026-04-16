@@ -9,7 +9,7 @@ import (
 func getCharLines(lines []string, char rune) []string {
 	index := int(char) - 32
 	start := index * 9
-	end := start + 8
+	end := start + 9
 
 	if start >= len(lines) || end > len(lines) {
 		return []string{"", "", "", "", "", "", "", ""}
@@ -19,7 +19,7 @@ func getCharLines(lines []string, char rune) []string {
 }
 
 func renderWord(lines []string, word string) {
-	for row := 0; row < 8; row++ {
+	for row := 0; row < 9; row++ {
 		line := ""
 
 		for _, char := range word {

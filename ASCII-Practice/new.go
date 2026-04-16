@@ -28,31 +28,18 @@ func main() {
 	// 	return
 	// }
 	str := os.Args[1]
-	if len(str) == 0 {
-		return
-	} else if str == "\\n" {
-		fmt.Println()
-		return
-	}
 	data, err := os.ReadFile(banners)
 	if err != nil {
 		return
 	}
 	slice := strings.Split(str, "\\n")
-
 	lines := strings.Split(string(data), "\n")
-	//fmt.Println(slice)
-
 	for i := range lines {
 		lines[i] = strings.ReplaceAll(lines[i], "\r", "")
 
 	}
 	for c := range slice {
-		if slice[c] == "" {
-			fmt.Println()
-			continue
-		}
-		for r := 1; r < 9; r++ {
+		for r := 1; r < 8; r++ {
 			row := []string{}
 
 			s := slice[c]
@@ -65,5 +52,4 @@ func main() {
 			fmt.Println(strings.Join(row, ""))
 		}
 	}
-	//fmt.Print("Hello \rworld")
 }
