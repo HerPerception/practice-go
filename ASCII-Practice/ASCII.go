@@ -33,11 +33,10 @@ func main() {
 		return
 	}
 	slice := strings.Split(str, "\\n")
-	fmt.Println(slice)
 	lines := strings.Split(string(data), "\n")
 	//fmt.Println(lines)
 	for c := range slice {
-		for r := 0; r < 8; r++ {
+		for r := 1; r < 8; r++ {
 			row := []string{}
 
 			s := slice[c]
@@ -47,10 +46,7 @@ func main() {
 					row = append(row, lines[index])
 				}
 			}
-			good := strings.Join(row, "")
-
-			//fmt.Println(len(row))
-			fmt.Println(good)
+			fmt.Println(strings.Join(row, ""))
 		}
 	}
 }
