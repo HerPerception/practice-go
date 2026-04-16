@@ -7,28 +7,50 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Println("Include text.")
+	length := len(os.Args)
+
+	if length < 2 || length > 3 {
+		fmt.Println("Invalid number of Args")
 		return
 	}
+
+	banners := "standard.txt"
+
+	if length == 2 {
+		banners = "standard.txt"
+	}
+
+	if length == 3 {
+		banners = os.Args[2]
+	}
+	// if len(os.Args) != 3 {
+	// 	fmt.Println("Include txt file.")
+	// 	return
+	// }
 	str := os.Args[1]
-	data, err := os.ReadFile("shadow.txt")
+	data, err := os.ReadFile(banners)
 	if err != nil {
 		return
 	}
-
+	slice := strings.Split(str, "\\n")
+	fmt.Println(slice)
 	lines := strings.Split(string(data), "\n")
+	//fmt.Println(lines)
+	for c := range slice {
+		for r := 0; r < 8; r++ {
+			row := []string{}
 
-	for r := 1; r < 9; r++ { 
-		row := []string{}
-
-		for c := range str {
-			index := int(str[c]-32)*9 + r
-			if index >= 0 && index < len(lines) {
-				row = append(row, lines[index])
+			s := slice[c]
+			for i := 0; i < len(s); i++ {
+				index := int(s[i]-32)*9 + r
+				if index >= 0 && index < len(lines) {
+					row = append(row, lines[index])
+				}
 			}
-		}
+			good := strings.Join(row, "")
 
-		fmt.Println(strings.Join(row, ""))
+			//fmt.Println(len(row))
+			fmt.Println(good)
+		}
 	}
 }
