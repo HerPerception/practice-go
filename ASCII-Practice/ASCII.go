@@ -12,7 +12,7 @@ func main() {
 	if length < 2 || length > 3 {
 		fmt.Println("Invalid number of Args")
 		return
-	}
+	} // This makes it possible to print whether the user chooses a txt file or not
 
 	banners := "standard.txt"
 
@@ -23,47 +23,46 @@ func main() {
 	if length == 3 {
 		banners = os.Args[2]
 	}
-	// if len(os.Args) != 3 {
-	// 	fmt.Println("Include txt file.")
-	// 	return
-	// }
+
 	str := os.Args[1]
 	if len(str) == 0 {
 		return
 	} else if str == "\\n" {
 		fmt.Println()
 		return
-	}
+	} // Prints a new line and returns if the string contains ONLY (\n)
+
 	data, err := os.ReadFile(banners)
 	if err != nil {
 		return
 	}
-	slice := strings.Split(str, "\\n")
+	slice := strings.Split(str, `\n`) /* This splits the string wherever it see (\n), not a newline. The backticks tells the
+	compiler that this is a string literal, not a control character that represents newline in Go. */
 
-	lines := strings.Split(string(data), "\n")
-	//fmt.Println(slice)
+	lines := strings.Split(string(data), "\n") /* This splits at every newline, the opposite of the first. */
 
 	for i := range lines {
 		lines[i] = strings.ReplaceAll(lines[i], "\r", "")
-
-	}
+	} /* The thinkertoy.txt file use the Windows standard for ending lines so after splitting the files by new lines, it is
+	necessary to remove the \r or it would cause characters to be overwritten when you print with thinkertoy.txt. */
 	for c := range slice {
 		if slice[c] == "" {
 			fmt.Println()
 			continue
-		}
+		} /* Print a newline and continue if thereis an empty string in the text slice. */
+
 		for r := 1; r < 9; r++ {
 			row := []string{}
 
 			s := slice[c]
 			for i := 0; i < len(s); i++ {
-				index := int(s[i]-32)*9 + r
+				index := int(s[i]-32)*9 + r // Get the position of the character in the banner file.
 				if index >= 0 && index < len(lines) {
 					row = append(row, lines[index])
-				}
+				} /* Append the characters of the string row by row, making sure the position is within the range of the
+				slice of characters - lines. */
 			}
-			fmt.Println(strings.Join(row, ""))
+			fmt.Println(strings.Join(row, "")) // Prints the characters row after row
 		}
 	}
-	//fmt.Print("Hello \rworld")
 }
