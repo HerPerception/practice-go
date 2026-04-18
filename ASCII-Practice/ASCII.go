@@ -27,7 +27,7 @@ func main() {
 	str := os.Args[1]
 	if len(str) == 0 {
 		return
-	} else if str == "\\n" {
+	} else if str == "\n" {
 		fmt.Println()
 		return
 	} // Prints a new line and returns if the string contains ONLY (\n)
