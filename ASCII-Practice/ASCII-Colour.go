@@ -18,60 +18,64 @@ var colourMap = map[string]string{
 
 func main() {
 	if len(os.Args) < 2 || len(os.Args) > 4 {
-		fmt.Println("Invalid number of arguments.")
+		fmt.Println("Error")
 		return
 	}
-	// data, err := os.ReadFile("standard.txt")
-	// if err != nil {
-	// 	fmt.Println("Error reading file.")
-	// 	return
-	// }
-	// lines := strings.Split(string(data), "\n")
-	color := os.Args[1]
 	str := ""
 	if len(os.Args) == 2 {
 		str = os.Args[1]
-	}
-	substr := ""
-	text := ""
-	colour := strings.Split(color, "=")
-	actualColour := colour[1]
-	if len(os.Args) == 3 {
+	} else if len(os.Args) == 3 {
 		str = os.Args[2]
-		substr = str
-		text += colourMap[actualColour] + substr + "\033[0m"
-		fmt.Println(text)
+	} else if len(os.Args) == 4 {
+		str = os.Args[3]
+	}
+	substr := str
+	if len(os.Args) == 4 {
+		substr = os.Args[2]
+
+	}
+	data, err := os.ReadFile("standard.txt")
+	if err != nil {
+		fmt.Println("Error reading file.")
 		return
 	}
-	if len(os.Args) == 4 {
-		str = os.Args[3]
-		substr = os.Args[2]
-		//fmt.Println(actualColour, substr, str)
-		slice := strings.Split(str, " ")
-		var indexes []string
-		// start := 0
-		// end := 0
-		//text := ""
-		for i := 0; i < len(slice); i++ {
-			s := slice[i]
-			for j := 0; j < len(s); j++ {
-				if j < j+len(substr) && len(substr) <= len(s) && s[j] == substr[0] && s[j+(len(substr)-1)] == substr[len(substr)-1] {
-					_, ok := colourMap[actualColour]
-					if ok {
-						in := j
-						for in < len(substr) {
-							text += colourMap[actualColour] + string(s[in]) + "\033[0m"
-							in++
-						}
+	var indexes []string
+	text := ""
+	lines := strings.Split(string(data), "\n")
+	actualColour := strings.Split(os.Args[1], "=")[1]
+	slice := strings.Split(str, " ")
+	for i := 0; i < len(slice); i++ {
+		s := slice[i]
+		for j := 0; j < len(s); j++ {
+			if j < j+len(substr) && len(substr) <= len(s) && s[j] == substr[0] && s[j+(len(substr)-1)] == substr[len(substr)-1] {
+				_, ok := colourMap[actualColour]
+				if ok {
+					in := j
+					for in < len(substr) {
+						text += colourMap[actualColour] + string(s[in]) + "\033[0m"
+						in++
 					}
-					j += len(substr) - 1
-				} else {
-					text += string(s[j])
+				}
+				j += len(substr) - 1
+			} else {
+				text += string(s[j])
+			}
+		}
+		indexes = append(indexes, text)
+		text = ""
+	}
+	indexes = fmt.Sprint(indexes)
+	for i := 0; i < len(indexes); i++ {
+		s := indexes[i]
+		for r := 1; r < 9; r++ {
+			row := []string{}
+			for j := 0; j < len(s); j++ {
+				index := int(s[j]-32)*9 + r
+				if index > 0 && index < len(lines) {
+					row = append(row, lines[index])
 				}
 			}
-			indexes = append(indexes, text)
-			text = ""
+			fmt.Println(strings.Join(row, ""))
 		}
-		fmt.Println(strings.Join(indexes, " "))
 	}
 }

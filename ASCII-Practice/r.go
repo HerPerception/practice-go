@@ -12,3 +12,7 @@ func main() {
 	fmt.Print(v)
 	fmt.Println()
 }
+
+
+	indexes = append(indexes, text)
+		text = ""
