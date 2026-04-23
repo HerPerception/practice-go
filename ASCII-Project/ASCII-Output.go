@@ -32,12 +32,12 @@ func main() {
 	for i := range str {
 		s := str[i]
 		var text string
-		if str[i] == "" {
-			text += fmt.Sprintln()
-			continue
-		}
 		for r := 1; r < 9; r++ {
 			var row []string
+			if s == "" {
+				text = fmt.Sprintln()
+				continue
+			}
 			for _, ch := range s {
 				index := int(ch-32)*9 + r
 				if index > 0 && index < len(lines) {
