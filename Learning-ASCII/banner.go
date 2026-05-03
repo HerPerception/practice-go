@@ -15,6 +15,7 @@ func LoadBanner(filename string) (map[rune][]string, error) {
 		return nil, errors.New("empty file")
 	}
 	lines := strings.Split(strings.ReplaceAll(string(data), "\r\n", "\n"), "\n")
+	lines = lines[1:]
 	var banner = map[rune][]string{}
 	for ch := ' '; ch <= '~'; ch++ {
 		start := int(ch-32) * 9

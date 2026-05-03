@@ -11,5 +11,5 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(Generate(os.Args[1], result))
+	fmt.Println(Generate(os.Args[3], result))
 }
