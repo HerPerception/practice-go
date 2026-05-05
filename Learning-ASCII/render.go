@@ -19,13 +19,18 @@ func RenderLines(text string, banner map[rune][]string) []string {
 	actualColour := strings.TrimPrefix(os.Args[1], "--color=")
 	const reset = "\033[0m"
 	var slice []string
-	substr := os.Args[2]
+	var substr string
+	if len(os.Args) == 3 {
+		substr = text
+	} else if len(os.Args) == 4 {
+		substr = os.Args[2]
+	}
 	num := 0
 	for r := 0; r < 8; r++ {
 		var builder strings.Builder
 		//j := 0
 		for i, ch := range text {
-			if text[i] == substr[0] && text[i:i+len(substr)] == substr {
+			if  i < len(text)-1 && i +len(substr) <= len(text) && text[i] == substr[0] && text[i:i+len(substr)] == substr {
 				num = len(substr)
 			}
 			if num > 0 {
