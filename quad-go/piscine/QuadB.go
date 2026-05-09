@@ -2,19 +2,19 @@ package main
 
 import "fmt"
 
-func QuadC(x, y int) {
+func QuadB(x, y int) {
 	for i := 0; i <= y-1; i++ {
 		for j := 0; j <= x-1; j++ {
 			if j != 0 && j != x-1 && (i == 0 || i == y-1) {
-				fmt.Print("B")
+				fmt.Print("*")
 			} else if (i > 0 && i <= y-2) && (j == 0 || j == x-1) {
-				fmt.Print("")
+				fmt.Print("*")
 			} else if (i > 0 && i <= y-2) && (j != 0 || j != x-1) {
 				fmt.Print(" ")
-			} else if i == 0 && (j == 0 || j == x-1) {
+			} else if (i == 0 && j == 0) || (i == y-1 && j == x-1) {
 				fmt.Print("/")
-			} else if i == y-1 && (j == 0 || j == x-1) {
-				fmt.Print("")
+			} else if (i == 0 && j == x-1) || (i == y-1 || j == 0) {
+				fmt.Print("\\")
 			}
 		}
 		fmt.Println()
@@ -25,5 +25,5 @@ func QuadC(x, y int) {
 //  else if (j == 0 || j == x-1) && (i == 0 || i == y-1)
 
 func main() {
-	QuadC(5, 5)
+	QuadB(1, 5)
 }
