@@ -1,14 +1,5 @@
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
-)
-
 /*
  * Complete the 'reverseArray' function below.
  *
@@ -17,64 +8,64 @@ import (
  */
 
 func reverseArray(a []int32) []int32 {
-    // Write your code here
-    s := []int32{}
-    for i := len(a)-1; i >= 0; i-- {
-        s = append(s, a[i])
-    }
-    return s
+	// Write your code here
+	s := []int32{}
+	for i := len(a) - 1; i >= 0; i-- {
+		s = append(s, a[i])
+	}
+	return s
 }
 
-func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
+// func main() {
+//     reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
 
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
+//     stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
+//     checkError(err)
 
-    defer stdout.Close()
+//     defer stdout.Close()
 
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
+//     writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
 
-    arrCount, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-    checkError(err)
+//     arrCount, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
+//     checkError(err)
 
-    arrTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
+//     arrTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
 
-    var arr []int32
+//     var arr []int32
 
-    for i := 0; i < int(arrCount); i++ {
-        arrItemTemp, err := strconv.ParseInt(arrTemp[i], 10, 64)
-        checkError(err)
-        arrItem := int32(arrItemTemp)
-        arr = append(arr, arrItem)
-    }
+//     for i := 0; i < int(arrCount); i++ {
+//         arrItemTemp, err := strconv.ParseInt(arrTemp[i], 10, 64)
+//         checkError(err)
+//         arrItem := int32(arrItemTemp)
+//         arr = append(arr, arrItem)
+//     }
 
-    res := reverseArray(arr)
+//     res := reverseArray(arr)
 
-    for i, resItem := range res {
-        fmt.Fprintf(writer, "%d", resItem)
+//     for i, resItem := range res {
+//         fmt.Fprintf(writer, "%d", resItem)
 
-        if i != len(res) - 1 {
-            fmt.Fprintf(writer, " ")
-        }
-    }
+//         if i != len(res) - 1 {
+//             fmt.Fprintf(writer, " ")
+//         }
+//     }
 
-    fmt.Fprintf(writer, "\n")
+//     fmt.Fprintf(writer, "\n")
 
-    writer.Flush()
-}
+//     writer.Flush()
+// }
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
-    }
+// func readLine(reader *bufio.Reader) string {
+//     str, _, err := reader.ReadLine()
+//     if err == io.EOF {
+//         return ""
+//     }
 
-    return strings.TrimRight(string(str), "\r\n")
-}
+//     return strings.TrimRight(string(str), "\r\n")
+// }
 
-func checkError(err error) {
-    if err != nil {
-        panic(err)
-    }
-}
+// func checkError(err error) {
+//     if err != nil {
+//         panic(err)
+//     }
+// }

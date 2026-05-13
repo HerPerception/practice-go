@@ -26,9 +26,10 @@ import (
 //		}
 //		fmt.Println(min, max)
 //	}
-func main() {
-	miniMaxSum([]int32{1, 2, 3, 4, 5})
-}
+
+// func main() {
+// 	miniMaxSum([]int32{1, 2, 3, 4, 5})
+// }
 
 func miniMaxSum(arr []int32) {
 	sum := int64(0)
