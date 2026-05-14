@@ -6,6 +6,10 @@ import (
 )
 
 func Handler(write http.ResponseWriter, read *http.Request) {
+	if read.URL.Path != "/" {
+		http.Error(write, "404: Not Found", http.StatusNotFound)
+		return
+	}
 	fmt.Fprint(write, "This is your first class on ASCII Art Web!")
 }
 
