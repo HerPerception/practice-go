@@ -1,4 +1,4 @@
-package main
+package piscine
 
 import "fmt"
 
@@ -24,6 +24,6 @@ func QuadB(x, y int) {
 // if j != 0 && j != x-1 && (i == 0 || i == y-1)
 //  else if (j == 0 || j == x-1) && (i == 0 || i == y-1)
 
-func main() {
-	QuadB(1, 5)
-}
+// func main() {
+// 	QuadB(1, 5)
+// }

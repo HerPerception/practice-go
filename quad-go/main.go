@@ -1,5 +1,7 @@
 package main
 
+import "quad/piscine"
+
 func main() {
-	QuadA(5, 3)
+	piscine.QuadA(5, 3)
 }
