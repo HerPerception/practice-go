@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-func Generate(text string, banner map[rune][]string) string {
+func Generate(text string, banner map[rune][]string, substr string) string {
 	if len(text) == 0 {
 		return ""
 	}
@@ -29,7 +29,7 @@ func Generate(text string, banner map[rune][]string) string {
 				newText += "\n"
 				continue
 			}
-			newText += strings.Join(RenderLines(ch, banner), "\n")
+			newText += strings.Join(RenderLines(ch, banner, substr), "\n")
 		}
 	}
 	return newText

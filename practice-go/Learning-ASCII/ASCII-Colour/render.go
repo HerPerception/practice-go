@@ -15,17 +15,16 @@ var colourMap = map[string]string{
 	"white":   "\033[37m",
 }
 
-func RenderLines(text string, banner map[rune][]string) []string {
+func RenderLines(text string, banner map[rune][]string, substr string) []string {
 	actualColour := strings.TrimPrefix(os.Args[1], "--color=")
 	const reset = "\033[0m"
 	var slice []string
-	substr := os.Args[2]
 	num := 0
 	for r := 0; r < 8; r++ {
 		var builder strings.Builder
 		//j := 0
 		for i, ch := range text {
-			if text[i] == substr[0] && text[i:i+len(substr)] == substr {
+			if i < len(text) && i+len(substr)-1 < len(text) && text[i] == substr[0] && text[i:i+len(substr)] == substr {
 				num = len(substr)
 			}
 			if num > 0 {
